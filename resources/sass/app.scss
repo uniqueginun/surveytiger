@@ -1,0 +1,40 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Custom
+@import "custom";
+
+@import "~bootstrap/scss/bootstrap-utilities"; 
+
+//Generate utilites for Cursor
+$utilities: map-merge(
+  $utilities,
+  (
+    "cursor": (
+      property: cursor,
+      values: auto default pointer wait text move help not-allowed
+    ),
+  )
+);
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap');
+
+.nav-link {
+  color: #fff !important;
+}
+
+body {
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 200 !important;
+  font-size: larger !important;
+}
+
+.invalid-feedback {
+  display: block;
+}
