@@ -14,7 +14,7 @@
             </tr>
           </template>
           <tr v-for="item in surveys" :key="item.id">
-            <th scope="row">{{ item.name }}</th>
+            <td scope="row">{{ item.name }}</td>
             <td>{{ item.updated_at }}</td>
             <td>
               <Link

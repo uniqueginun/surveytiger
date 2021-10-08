@@ -1,5 +1,5 @@
 <template>
-  <button :type="type" class="btn btn-danger text-white text-uppercase">
+  <button :type="type" class="btn btn-danger text-uppercase" :class="[dark ? 'text-dark' : 'text-white']">
     <slot></slot>
   </button>
 </template>
@@ -13,6 +13,10 @@
         type: String,
         default: 'button',
       },
+      dark: {
+        type: Boolean,
+        default: false,
+      }
     }
   })
 </script>

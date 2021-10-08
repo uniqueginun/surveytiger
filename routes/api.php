@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\SurveyQuestionAnswersController;
+use App\Http\Controllers\Api\SurveyQuestionDeleteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get(
+    'survey/{survey}/question/{question}/answers', 
+    SurveyQuestionAnswersController::class
+);
+
+Route::delete(
+    'survey/{survey}/question/{question}', 
+    SurveyQuestionDeleteController::class
+)->name('survey.question.delete');

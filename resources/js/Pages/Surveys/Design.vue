@@ -4,7 +4,7 @@
       <h2 class="h4 font-weight-bold">Design your survey</h2>
     </template>
     <div>
-      
+
       <!-- breadcrumb -->
       <survey-crumb v-on:changed="crumbChanged" :activeCrumb="activeCrumb" />
 
@@ -20,9 +20,7 @@
 
       <!-- Design questions -->
       <div>
-        <design-questions :survey="survey" />
-
-        <jet-section-border />
+        <design-questions :survey="survey" :types="types" />
       </div>
     </div>
   </app-layout>
@@ -38,7 +36,7 @@ import SurveyCrumb from "./SurveyCrumb.vue";
 
 export default defineComponent({
   data: () => ({
-    activeCrumb: "DESIGN SURVEY"
+    activeCrumb: "Survey design"
   }),
   methods: {
     crumbChanged(crumb) {
@@ -54,6 +52,10 @@ export default defineComponent({
       type: Array,
       default: [],
     },
+    types: {
+      type: Array,
+      default: []
+    }
   },
   components: {
     AppLayout,
@@ -65,4 +67,3 @@ export default defineComponent({
 });
 </script>
 
-    

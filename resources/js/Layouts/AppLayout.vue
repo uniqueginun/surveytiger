@@ -49,7 +49,7 @@
               :href="route('surveys.create')"
               :active="route().current('surveys.create')"
             >
-              Create Survey 
+              Create Survey
             </jet-nav-link>
           </ul>
 
@@ -264,3 +264,9 @@ export default {
   },
 };
 </script>
+
+<style>
+    .nav-link.active {
+        font-weight: 400;
+    }
+</style>

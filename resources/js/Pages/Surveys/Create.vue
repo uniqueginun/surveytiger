@@ -58,13 +58,27 @@
                   @click.prevent="setSubmit('create')"
                   class="btn btn-success text-white"
                 >
+                    <div
+                        v-show="form.processing && isCreate"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                    >
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                   Create and enter questions
                 </button>
                 <button
                   type="button"
                   @click.prevent="setSubmit('save')"
-                  class="btn btn-info text-white mx-2"
+                  class="btn btn-dark text-white mx-2"
                 >
+                    <div
+                        v-show="form.processing && !isCreate"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                    >
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                   Save for later use
                 </button>
               </div>
@@ -79,7 +93,6 @@
 <script>
 import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import iziToast from "izitoast";
 
 export default defineComponent({
   props: {
@@ -107,13 +120,7 @@ export default defineComponent({
         preserveScroll: true,
         onSuccess: () => {
           this.form.reset();
-          iziToast.show({
-            title: "Success",
-            message: this.$page.props.jetstream.flash || "Survey was created!",
-            theme: "light", 
-            color: "green", 
-            position: 'bottomRight'
-          });
+          toaster(this.$page.props.jetstream.flash);
         },
         onError: (err) => console.log(err),
       });
@@ -123,5 +130,10 @@ export default defineComponent({
       this.makeSurvey();
     },
   },
+  computed: {
+    isCreate() {
+        return this.form.action === 'create';
+    }
+  }
 });
 </script>

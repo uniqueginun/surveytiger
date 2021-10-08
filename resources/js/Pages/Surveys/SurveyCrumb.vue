@@ -27,11 +27,11 @@ export default defineComponent({
   data: () => ({
     crumbs: [
       {
-        name: "DESIGN SURVEY",
+        name: "Survey design",
         link: "#",
       },
       {
-        name: "PREVIEW & SCORE",
+        name: "Preview and score",
         link: "#",
       },
     ],
@@ -64,6 +64,5 @@ ol.breadcrumb {
 .breadcrumb-item.active a {
   color: #38c172;
   font-weight: bold;
-  border-bottom: 3px solid #38c172;
 }
 </style>

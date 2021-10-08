@@ -1,77 +1,72 @@
 <template>
-  <jet-form-section @submitted="updateSurveyInformation">
+  <jet-form-section @submitted="updateSurveyInformation" :showfooter="enableEdit">
     <template #title> Survey's Information </template>
 
     <template #description>
       You can edit your survey's basic information.
     </template>
 
-    <template #form>
-      <jet-action-message :on="form.recentlySuccessful">
-        Saved.
-      </jet-action-message>
-
-      <div @mouseenter="handleMouseEvent('enter')" @mouseleave="handleMouseEvent('out')">
-        <h4 v-if="!enableEdit" class="d-flex justify-content-between align-items-center p-3" :class="{'bg-light': showEditButton}">
-          <span>{{ survey.name }}</span>
-          <a @click="enableEdit = true" v-if="showEditButton" type="button">
-            <i class="fas fa-pencil text-dark"></i>
-          </a>
-        </h4>
-        <h4 v-if="enableEdit" class="d-flex justify-content-end align-items-center">
-          <a type="button" @click="enableEdit = false"> <i class="fas fa-times text-danger"></i> </a>
-        </h4>
-        <div v-if="enableEdit" class="w-75">
-          <!-- Title -->
-          <div class="mb-3">
-            <jet-label for="name" value="Title" />
-            <jet-input
-              id="name"
-              type="text"
-              v-model="form.name"
-              :class="{ 'is-invalid': form.errors.name }"
-              autocomplete="name"
-            />
-            <jet-input-error :message="form.errors.name" />
+      <template #form>
+          <div @mouseenter="handleMouseEvent('enter')" @mouseleave="handleMouseEvent('out')">
+              <h4 v-if="!enableEdit" class="d-flex justify-content-between align-items-center p-3" :class="{'bg-light': showEditButton}">
+                  <span>{{ survey.name }}</span>
+                  <a @click="enableEdit = true" v-if="showEditButton" type="button">
+                      <i class="fas fa-pencil text-dark"></i>
+                  </a>
+              </h4>
+              <h4 v-if="enableEdit" class="d-flex justify-content-end align-items-center">
+                  <a type="button" @click="enableEdit = false"> <i class="fas fa-times text-danger"></i> </a>
+              </h4>
+              <div v-if="enableEdit" class="w-75">
+                  <!-- Title -->
+                  <div class="mb-3">
+                      <jet-label for="name" value="Title" />
+                      <jet-input
+                          id="name"
+                          type="text"
+                          v-model="form.name"
+                          :class="{ 'is-invalid': form.errors.name }"
+                          autocomplete="name"
+                      />
+                      <jet-input-error :message="form.errors.name" />
+                  </div>
+                  <div class="mb-3">
+                      <jet-label for="category" value="Category" />
+                      <select
+                          id="category"
+                          class="form-select"
+                          v-model="form.category_id"
+                      >
+                          <option value="">choose one ...</option>
+                          <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+                              {{ cat.name }}
+                          </option>
+                      </select>
+                      <div v-if="form.errors.category_id" class="invalid-feedback">
+                          {{ form.errors.category_id }}
+                      </div>
+                  </div>
+              </div>
           </div>
-          <div class="mb-3">
-            <jet-label for="category" value="Category" />
-            <select
-              id="category"
-              class="form-select"
-              v-model="form.category_id"
-            >
-              <option value="">choose one ...</option>
-              <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-                {{ cat.name }}
-              </option>
-            </select>
-            <div v-if="form.errors.category_id" class="invalid-feedback">
-              {{ form.errors.category_id }}
-            </div>
+      </template>
+      <template #actions>
+          <div>
+              <jet-button
+                  :class="{ 'text-white-50': form.processing }"
+                  :disabled="form.processing || !enableEdit"
+              >
+                  <div
+                      v-show="form.processing"
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                  >
+                      <span class="visually-hidden">Loading...</span>
+                  </div>
+
+                  Save
+              </jet-button>
           </div>
-        </div>
-      </div>
-    </template>
-
-    <template #actions>
-      <div v-if="enableEdit">
-      <jet-button
-        :class="{ 'text-white-50': form.processing }"
-        :disabled="form.processing"
-      >
-        <div
-          v-show="form.processing"
-          class="spinner-border spinner-border-sm"
-          role="status"
-        >
-          <span class="visually-hidden">Loading...</span>
-        </div>
-
-        Save
-      </jet-button>
-      </div>
-    </template>
+      </template>
   </jet-form-section>
 </template>
 
@@ -118,6 +113,7 @@ export default defineComponent({
         preserveScroll: true,
         onSuccess: () => {
           this.enableEdit = false;
+          toaster('survey edited successfully');
         },
       });
     },

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\SurveyDesignController;
+use App\Http\Controllers\SurveyDesignStoreController;
+use App\Http\Controllers\SurveyQuestionUpdateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +29,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
@@ -40,5 +43,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/{survey}', [SurveyController::class, 'update'])->name('update');
         Route::delete('/{survey}', [SurveyController::class, 'destroy'])->name('destroy');
         Route::get('/{survey}/desgin', SurveyDesignController::class)->name('design');
+        Route::post('/{survey}/desgin', SurveyDesignStoreController::class);
+        Route::put('/{survey}/design/{question}/update', SurveyQuestionUpdateController::class)->name('question.update');
     });
+
 });

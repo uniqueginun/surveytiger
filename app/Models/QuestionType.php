@@ -10,4 +10,5 @@ class QuestionType extends Model
     use HasFactory;
 
     public $timestamps = false;
+
 }

@@ -16,4 +16,10 @@ class Survey extends Model
     {
         return Carbon::parse($value)->diffForHumans();
     }
+
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class, 'question_surveys')
+                    ->withPivot('question_type_id');
+    }
 }

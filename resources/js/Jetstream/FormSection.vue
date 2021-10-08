@@ -32,6 +32,13 @@
   import JetSectionTitle from './SectionTitle.vue'
 
   export default defineComponent({
+    props: {
+        showfooter: {
+            type: Boolean,
+            default: true
+        }
+    },
+
     components: {
       JetSectionTitle,
     },
@@ -40,7 +47,7 @@
 
     computed: {
       hasActions() {
-        return !! this.$slots.actions
+        return !! this.$slots.actions && this.showfooter
       }
     }
   })
