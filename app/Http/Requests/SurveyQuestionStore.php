@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\QuestionType;
 
 class SurveyQuestionStore extends FormRequest
 {
@@ -26,8 +27,13 @@ class SurveyQuestionStore extends FormRequest
         return [
             'question_text' => 'required|string|max:255',
             'question_type_id' => 'required|integer|exists:question_types,id',
-            'answers' => 'required|array',
-            'answers.*.answer_text' => 'required|string|max:255',
+            'answers' => 'sometimes|nullable|array',
+            'answers.*.answer_text' => 'sometimes|string|max:255',
         ];
+    }
+
+    public function className()
+    {
+        return QuestionType::find($this->question_type_id)->component_name;
     }
 }

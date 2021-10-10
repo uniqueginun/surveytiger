@@ -7,6 +7,7 @@
     :question_type_id="question.pivot.question_type_id + ''"
     :updating="question.id"
     :answers="answers"
+    :questionSurvey="questionSurvey"
     @questionUpdated="questionUpdated"
   >
     <template #closeEdit>
@@ -114,7 +115,7 @@ export default {
 
     const { question, survey } = props;
 
-    const { answers, loadAnswers } = useAnswers(survey.id, question.id);
+    const { answers, questionSurvey, loadAnswers } = useAnswers(survey.id, question.id);
 
     const { isDeleting, deleteQuestion } = useDeleteQuestion(
       survey.id,
@@ -145,6 +146,7 @@ export default {
       toggleEditing,
       editingMode,
       questionUpdated,
+      questionSurvey
     };
   },
 };

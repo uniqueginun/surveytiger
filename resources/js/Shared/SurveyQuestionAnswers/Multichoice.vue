@@ -18,7 +18,7 @@ export default {
   setup(props, { emit }) {
     const { payload } = toRefs(props);
 
-    const intialOptions = payload.value || [{ answer_text: "" }];
+    const intialOptions = payload?.value?.answers || [{ answer_text: "" }];
 
     const answers = ref(intialOptions);
     

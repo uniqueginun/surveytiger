@@ -3,6 +3,9 @@ import JetInput from "@/Jetstream/Input.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInputError from "@/Jetstream/InputError.vue";
 import Multichoice from "@/Shared/SurveyQuestionAnswers/Multichoice.vue";
+import Slider from "@/Shared/SurveyQuestionAnswers/Slider.vue";
+import Textbox from "@/Shared/SurveyQuestionAnswers/Textbox.vue";
+import Rating from "@/Shared/SurveyQuestionAnswers/Rating.vue";
 import { reactive, computed, toRefs, watch } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { useUpdateQuestion } from "@/Composable/SurveyQuestionAnswer.js";
@@ -13,6 +16,9 @@ export default {
     JetButton,
     JetInputError,
     Multichoice,
+    Rating,
+    Textbox,
+    Slider,
   },
 
   props: {
@@ -24,6 +30,9 @@ export default {
     question_text: String,
     question_type_id: String,
     answers: {
+      default: null,
+    },
+    questionSurvey: {
       default: null,
     },
     updating: {
@@ -40,39 +49,51 @@ export default {
       question_text,
       question_type_id,
       answers,
+      questionSurvey,
       updating,
-    } = toRefs(props);
+    } = props;
 
     const QuestionForm = reactive({
-      question_text: question_text.value,
-      question_type_id: question_type_id.value,
-      answers: answers.value,
+      question_text: question_text,
+      question_type_id: question_type_id,
+      answers: answers,
+      scale: questionSurvey?.scale
     });
 
     const formErrors = reactive({});
 
     const answersBLock = computed(() => {
-      const type = questiontypes.value.find(
+      const type = questiontypes.find(
         (questiontype) => questiontype.id == QuestionForm.question_type_id
       );
-      return type ? type.name : null;
+
+      if (!type) {
+        return null;
+      }
+
+      return type.component_name;
     });
 
-    const optionsChanged = (options) => {
-      QuestionForm.answers = options;
+    const optionsChanged = (options, source = null) => {
+      if (source && source === "rating") {
+        QuestionForm.answers = options["answers"];
+        QuestionForm.scale = options["scale"];
+      } else {
+        QuestionForm.answers = options;
+      }
     };
 
     const { isUpdating, updateQuestion } = useUpdateQuestion(
       props.survey.id,
-      updating.value
+      updating
     );
 
     watch(isUpdating, (status, _) => {
-      (!status) && emit("questionUpdated");  
+      !status && emit("questionUpdated");
     });
 
     const saveQuestion = () => {
-      if (updating.value) {
+      if (updating) {
         updateQuestion(QuestionForm);
         return;
       }
@@ -81,9 +102,9 @@ export default {
         preserveScroll: true,
         onSuccess: () => {
           toaster("question was successfully added.");
-          QuestionForm.question_text = question_text.value;
-          QuestionForm.question_type_id = question_type_id.value;
-          QuestionForm.answers = answers.value;
+          QuestionForm.question_text = question_text;
+          QuestionForm.question_type_id = question_type_id;
+          QuestionForm.answers = answers;
         },
         onError: (errors) => {
           formErrors.value = errors;
@@ -145,7 +166,7 @@ export default {
           <component
             v-if="answersBLock"
             :is="answersBLock"
-            :payload="QuestionForm.answers"
+            :payload="QuestionForm"
             @optionsChanged="optionsChanged"
           ></component>
         </div>

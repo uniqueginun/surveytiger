@@ -11,4 +11,15 @@ class QuestionType extends Model
 
     public $timestamps = false;
 
+    protected $appends = ['component_name'];
+
+    public function getComponentNameAttribute()
+    {
+        if (in_array($this->name, ['Multichoice', 'Singlechoice', 'Dropdown', 'Ranking'])) {
+            return 'Multichoice';
+        }
+
+        return $this->name;
+    }
+
 }

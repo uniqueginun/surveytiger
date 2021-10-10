@@ -7,6 +7,7 @@ use App\Models\OfferedAnswer;
 use App\Models\QuestionSurvey;
 use App\Models\Survey;
 use App\Models\SurveyQuestionAnswer;
+use App\Services\QuestionAnswerService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -21,7 +22,7 @@ class SurveyDesignStoreController extends Controller
 
             $question = $authenicatedUser->questions()->create($request->only(['question_text']));
 
-            QuestionSurvey::create([
+            $QuestionSurvey = QuestionSurvey::create([
                 'question_id' => $question->id,
                 'survey_id' => $survey->id,
                 'question_type_id' => $request->question_type_id,
@@ -30,18 +31,8 @@ class SurveyDesignStoreController extends Controller
                 'center' => $request->center ?? 0,
                 'scale' => $request->scale ?? 0
             ]);
-            
-            foreach($request->answers as $answer) {
-                $answer = OfferedAnswer::create([
-                    'answer_text' => $answer['answer_text'],
-                ]);
 
-                SurveyQuestionAnswer::create([
-                    'question_id' => $question->id,
-                    'offered_answer_id' => $answer->id,
-                    'survey_id' => $survey->id,
-                ]);
-            }
+            QuestionAnswerService::create($request, $QuestionSurvey);
 
             DB::commit();
             return redirect()->route('surveys.design', $survey->id)->with('flash', 'Question added successfully');

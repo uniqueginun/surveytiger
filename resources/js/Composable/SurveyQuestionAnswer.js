@@ -4,16 +4,19 @@ import { Inertia } from '@inertiajs/inertia';
 
 export const useAnswers = (surveyId, questionId) => {
    const answers = ref([]);
+   const questionSurvey = ref(null);
 
    const url = `/api/survey/${surveyId}/question/${questionId}/answers`;
 
    const loadAnswers = async () => {
       const { data } = await axios.get(url);
-      answers.value = data;
+      answers.value = data.offeredAnswers;
+      questionSurvey.value = data.questionSurvey;
    };
 
    return {
       answers,
+      questionSurvey,
       loadAnswers,
    };
 }
@@ -23,9 +26,9 @@ export const useDeleteQuestion = (surveyId, questionId) => {
    const isDeleting = ref(false);
 
    const payload = { survey: surveyId, question: questionId };
-   
+
    const deleteQuestion = async () => {
-      
+
       isDeleting.value = true;
 
       Inertia.delete(route('survey.question.delete', payload), {
@@ -49,7 +52,7 @@ export const useUpdateQuestion = (surveyId, questionId) => {
    const editingMode = ref(false);
 
    const toggleEditing = () => {
-      editingMode.value = ! editingMode.value;
+      editingMode.value = !editingMode.value;
    }
 
    const updateQuestion = (data) => {
