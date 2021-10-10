@@ -3,9 +3,8 @@
 namespace App\Services\QuestionAnswers;
 
 use App\Http\Requests\SurveyQuestionStore;
-use App\Models\OfferedAnswer;
 use App\Models\QuestionSurvey;
-use App\Models\SurveyQuestionAnswer;
+use App\Services\SurveyQuestionAnswer as ServicesSurveyQuestionAnswer;
 
 class Rating
 {
@@ -13,20 +12,9 @@ class Rating
    {      
       $answerArray = count($request->answers) ? $request->answers : range(1, $request->scale);
 
-      foreach($answerArray as $answer)
-      {
+      dd($answerArray);
 
-         $answer = OfferedAnswer::updateOrCreate(
-            ['id' =>  $answer['id']],
-            ['answer_text' => $answer['answer_text']]
-        );
-
-        SurveyQuestionAnswer::create([
-            'question_id' => $questionSurvey->question_id,
-            'offered_answer_id' => $answer->id,
-            'survey_id' => $questionSurvey->survey_id,
-        ]);
-      }
+      ServicesSurveyQuestionAnswer::storeAnswers($answerArray, $questionSurvey);
    }
 
    public static function update(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)

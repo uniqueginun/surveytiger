@@ -43,42 +43,46 @@ export default {
       payload["scale"] = ratingScale.value;
       emit("optionsChanged", payload, "rating");
     };
-    
+
     if (!isNew.value) {
       triggerEmit(oldLabels);
     }
 
-
-    const scaleLablesArray = computed(() => {
-      const array = [];
-      for (let i = 1; i <= ratingScale.value; i++) {
-        array.push(i);
-      }
-      return array.map((i) => {
-        let pos = i - 1;
-        return {
-          id: (isNew.value || !oldLabels[pos]) ? '' : oldLabels[pos].id,
-          answer_text: (isNew.value || !oldLabels[pos]) ? `${i}` : oldLabels[pos].answer_text,
-        }
-      })
+    const scaleLablesArrayInitial = ratingScaleArray.value.map((i) => {
+      let pos = i - 1;
+      return {
+        id: isNew.value || !oldLabels[pos] ? "" : oldLabels[pos].id,
+        answer_text:
+          isNew.value || !oldLabels[pos] ? `${i}` : oldLabels[pos].answer_text,
+      };
     });
+
+    const scaleLablesArray = ref(scaleLablesArrayInitial);
 
     watch(hasLabels, (has, _) => {
       has && triggerEmit();
     });
 
-    watch(ratingScale, (count) => {
-      const filteredItems = scaleLablesArray.value.filter(
-        (_, index) => index < count
-      );
-      scaleLablesArray.value = filteredItems;
+    watch(ratingScale, (count, old) => {
+      if (count < old) {
+        const filteredItems = scaleLablesArray.value.filter(
+          (_, index) => index < count
+        );
+        scaleLablesArray.value = filteredItems;
+      } else {
+        scaleLablesArray.value.push({id: '', answer_text: ''});
+      }
       triggerEmit();
     });
 
+    const answer_texts = computed(() => {
+      return scaleLablesArray.value.map(item => item.answer_text);
+    });
+
     watch(
-      () => [...scaleLablesArray.value],
-      (labels, _) => {
-        triggerEmit(labels);
+      () => [...answer_texts.value],
+      (texts, _) => {
+        triggerEmit();
       }
     );
 
@@ -86,7 +90,7 @@ export default {
       ratingScale,
       hasLabels,
       ratingScaleArray,
-      scaleLablesArray,
+      scaleLablesArray
     };
   },
 };

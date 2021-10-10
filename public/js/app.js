@@ -25104,35 +25104,41 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       triggerEmit(oldLabels);
     }
 
-    var scaleLablesArray = (0,vue__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
-      var array = [];
-
-      for (var i = 1; i <= ratingScale.value; i++) {
-        array.push(i);
-      }
-
-      return array.map(function (i) {
-        var pos = i - 1;
-        return {
-          id: isNew.value || !oldLabels[pos] ? '' : oldLabels[pos].id,
-          answer_text: isNew.value || !oldLabels[pos] ? "".concat(i) : oldLabels[pos].answer_text
-        };
-      });
+    var scaleLablesArrayInitial = ratingScaleArray.value.map(function (i) {
+      var pos = i - 1;
+      return {
+        id: isNew.value || !oldLabels[pos] ? "" : oldLabels[pos].id,
+        answer_text: isNew.value || !oldLabels[pos] ? "".concat(i) : oldLabels[pos].answer_text
+      };
     });
+    var scaleLablesArray = (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(scaleLablesArrayInitial);
     (0,vue__WEBPACK_IMPORTED_MODULE_3__.watch)(hasLabels, function (has, _) {
       has && triggerEmit();
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_3__.watch)(ratingScale, function (count) {
-      var filteredItems = scaleLablesArray.value.filter(function (_, index) {
-        return index < count;
-      });
-      scaleLablesArray.value = filteredItems;
+    (0,vue__WEBPACK_IMPORTED_MODULE_3__.watch)(ratingScale, function (count, old) {
+      if (count < old) {
+        var filteredItems = scaleLablesArray.value.filter(function (_, index) {
+          return index < count;
+        });
+        scaleLablesArray.value = filteredItems;
+      } else {
+        scaleLablesArray.value.push({
+          id: '',
+          answer_text: ''
+        });
+      }
+
       triggerEmit();
     });
+    var answer_texts = (0,vue__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
+      return scaleLablesArray.value.map(function (item) {
+        return item.answer_text;
+      });
+    });
     (0,vue__WEBPACK_IMPORTED_MODULE_3__.watch)(function () {
-      return _toConsumableArray(scaleLablesArray.value);
-    }, function (labels, _) {
-      triggerEmit(labels);
+      return _toConsumableArray(answer_texts.value);
+    }, function (texts, _) {
+      triggerEmit();
     });
     return {
       ratingScale: ratingScale,

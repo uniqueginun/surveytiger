@@ -28,7 +28,6 @@ class SurveyQuestionStore extends FormRequest
             'question_text' => 'required|string|max:255',
             'question_type_id' => 'required|integer|exists:question_types,id',
             'answers' => 'sometimes|nullable|array',
-            'answers.*.answer_text' => 'sometimes|string|max:255',
         ];
     }
 
