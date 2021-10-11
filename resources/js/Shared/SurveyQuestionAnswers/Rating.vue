@@ -70,7 +70,7 @@ export default {
         );
         scaleLablesArray.value = filteredItems;
       } else {
-        scaleLablesArray.value.push({id: '', answer_text: ''});
+        scaleLablesArray.value.push({id: '', answer_text: `${count}`});
       }
       triggerEmit();
     });

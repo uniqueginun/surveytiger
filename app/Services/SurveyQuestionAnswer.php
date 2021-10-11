@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\OfferedAnswer;
 use App\Models\SurveyQuestionAnswer as ModelsSurveyQuestionAnswer;
 
-class SurveyQuestionAnswer
+abstract class SurveyQuestionAnswer
 {
    public static function storeAnswers($data, $questionSurvey)
    {

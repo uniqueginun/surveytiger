@@ -6,11 +6,11 @@ use App\Http\Requests\SurveyQuestionStore;
 use App\Models\QuestionSurvey;
 use App\Services\SurveyQuestionAnswer as ServicesSurveyQuestionAnswer;
 
-class Multichoice
+class Multichoice extends ServicesSurveyQuestionAnswer
 {
    public static function create(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)
    {
-      ServicesSurveyQuestionAnswer::storeAnswers(
+      static::storeAnswers(
          $request->answers, 
          $questionSurvey
       );
@@ -18,7 +18,7 @@ class Multichoice
 
    public static function update(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)
    {
-      ServicesSurveyQuestionAnswer::storeAnswers(
+      static::storeAnswers(
          $request->answers, 
          $questionSurvey
       );

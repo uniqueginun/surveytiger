@@ -13,6 +13,6 @@ class QuestionSurvey extends Model
 
     public function type()
     {
-        return $this->belongsTo(QuestionType::class);
+        return $this->belongsTo(QuestionType::class, 'question_type_id');
     }
 }

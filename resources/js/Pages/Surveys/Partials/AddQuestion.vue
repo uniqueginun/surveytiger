@@ -4,7 +4,6 @@ import JetButton from "@/Jetstream/Button.vue";
 import JetInputError from "@/Jetstream/InputError.vue";
 import Multichoice from "@/Shared/SurveyQuestionAnswers/Multichoice.vue";
 import Slider from "@/Shared/SurveyQuestionAnswers/Slider.vue";
-import Textbox from "@/Shared/SurveyQuestionAnswers/Textbox.vue";
 import Rating from "@/Shared/SurveyQuestionAnswers/Rating.vue";
 import { reactive, computed, toRefs, watch } from "vue";
 import { Inertia } from "@inertiajs/inertia";
@@ -17,7 +16,6 @@ export default {
     JetInputError,
     Multichoice,
     Rating,
-    Textbox,
     Slider,
   },
 
@@ -67,7 +65,7 @@ export default {
         (questiontype) => questiontype.id == QuestionForm.question_type_id
       );
 
-      if (!type) {
+      if (!type || !type.has_options) {
         return null;
       }
 

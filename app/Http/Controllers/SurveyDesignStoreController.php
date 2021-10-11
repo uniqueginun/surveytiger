@@ -32,10 +32,17 @@ class SurveyDesignStoreController extends Controller
                 'scale' => $request->scale ?? 0
             ]);
 
-            QuestionAnswerService::create($request, $QuestionSurvey);
+            $QuestionSurvey->load('type');
+
+            if($QuestionSurvey->type->has_options) {
+                QuestionAnswerService::create($request, $QuestionSurvey);
+            }
 
             DB::commit();
-            return redirect()->route('surveys.design', $survey->id)->with('flash', 'Question added successfully');
+
+            return redirect()->route('surveys.design', $survey->id)
+                        ->with('flash', 'Question added successfully');
+
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
