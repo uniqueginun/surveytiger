@@ -55,7 +55,10 @@ export default {
       question_text: question_text,
       question_type_id: question_type_id,
       answers: answers,
-      scale: questionSurvey?.scale
+      scale: questionSurvey?.scale,
+      min: questionSurvey?.min,
+      max: questionSurvey?.max,
+      center: questionSurvey?.center,
     });
 
     const formErrors = reactive({});
@@ -76,6 +79,10 @@ export default {
       if (source && source === "rating") {
         QuestionForm.answers = options["answers"];
         QuestionForm.scale = options["scale"];
+      } else if (source && source === "slider") {
+        QuestionForm.center = options["center"];
+        QuestionForm.min = options["min"];
+        QuestionForm.max = options["max"];
       } else {
         QuestionForm.answers = options;
       }

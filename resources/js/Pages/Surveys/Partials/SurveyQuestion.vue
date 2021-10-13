@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, onUpdated } from "vue";
 import AddQuestion from "./AddQuestion.vue";
 import {
   useAnswers,
@@ -133,6 +133,7 @@ export default {
 
     const questionUpdated = () => {
       toggleEditing();
+       loadAnswers()
     };
 
     onMounted(() => loadAnswers());

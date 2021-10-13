@@ -39,17 +39,17 @@ class SurveyQuestionUpdateController extends Controller
                 'scale' => $request->scale ?? 0
             ]);
 
-            if($questionSurvey->type->has_options) {
+            if($questionSurvey->type->has_options && !!$request->answers) {
                 SurveyQuestionAnswer::where($condition)->delete();
                 QuestionAnswerService::update($request, $questionSurvey->fresh());
             }
 
             DB::commit();
+            
             return redirect()->route('surveys.design', $survey->id)->with('flash', 'Question added successfully');
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error($th->getMessage());
             Log::error($th->getTraceAsString());
             return redirect()->back()->withErrors([
                 'question' => 'couldn\'t edit question',
