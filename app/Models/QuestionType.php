@@ -11,7 +11,7 @@ class QuestionType extends Model
 
     public $timestamps = false;
 
-    protected $appends = ['component_name', 'has_options'];
+    protected $appends = ['component_name', 'has_options', 'has_answers'];
 
     public function getComponentNameAttribute()
     {
@@ -26,6 +26,11 @@ class QuestionType extends Model
     public function getHasOptionsAttribute()
     {
         return $this->name !== 'Textbox';
+    }
+
+    public function getHasAnswersAttribute()
+    {
+        return ! in_array($this->name, array('Textbox', 'Slider'));
     }
 
 }

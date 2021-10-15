@@ -74,6 +74,11 @@
               {{ item.answer_text }}
             </li>
           </ol>
+          <div v-if="questionSurvey?.is_slider">
+            <p class="text-muted">Min: {{ questionSurvey.min }}</p>
+            <p class="text-muted">Center: {{ questionSurvey.center }}</p>
+            <p class="text-muted">Max: {{ questionSurvey.max }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -81,7 +86,7 @@
 </template>
 
 <script>
-import { ref, onMounted, watch, onUpdated } from "vue";
+import { ref, onMounted } from "vue";
 import AddQuestion from "./AddQuestion.vue";
 import {
   useAnswers,

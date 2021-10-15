@@ -11,8 +11,17 @@ class QuestionSurvey extends Model
 
     protected $guarded = [];
 
+    protected $with = ['type'];
+
+    protected $appends = ['is_slider'];
+
     public function type()
     {
         return $this->belongsTo(QuestionType::class, 'question_type_id');
+    }
+
+    public function getIsSliderAttribute()
+    {
+        return $this->type->name === 'Slider';
     }
 }

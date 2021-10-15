@@ -34,7 +34,7 @@ class SurveyDesignStoreController extends Controller
 
             $QuestionSurvey->load('type');
 
-            if($QuestionSurvey->type->has_options) {
+            if($QuestionSurvey->type->has_answers) {
                 QuestionAnswerService::create($request, $QuestionSurvey);
             }
 

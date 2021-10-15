@@ -3,7 +3,7 @@
 
   <jet-authentication-card>
     <template #logo>
-      <jet-authentication-card-logo />
+        <jet-application-mark width="60" />
     </template>
 
     <div class="card-body">
@@ -58,7 +58,7 @@
 <script>
 import { defineComponent } from 'vue'
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+import JetApplicationMark from '@/Jetstream/ApplicationMark.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import JetCheckbox from '@/Jetstream/Checkbox.vue'
@@ -70,7 +70,7 @@ export default defineComponent({
   components: {
     Head,
     JetAuthenticationCard,
-    JetAuthenticationCardLogo,
+    JetApplicationMark,
     JetButton,
     JetInput,
     JetCheckbox,
