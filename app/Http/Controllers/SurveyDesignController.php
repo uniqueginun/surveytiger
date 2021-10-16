@@ -16,7 +16,7 @@ class SurveyDesignController extends Controller
             abort(403);
         }
 
-        $survey->load('questions');
+        $survey->load('questions.type', 'questions.answers');
 
         return Inertia::render('Surveys/Design', [
             'survey' => $survey,

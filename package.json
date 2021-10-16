@@ -32,7 +32,10 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@vueform/slider": "^2.0.5",
         "izitoast": "^1.4.0",
-        "vue-notifications": "^1.0.2"
+        "vue-notifications": "^1.0.2",
+        "vue-star-rating": "^2.1.0",
+        "vuedraggable": "^4.1.0"
     }
 }

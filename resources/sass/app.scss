@@ -10,7 +10,7 @@
 // Custom
 @import "custom";
 
-@import "~bootstrap/scss/bootstrap-utilities"; 
+@import "~bootstrap/scss/bootstrap-utilities";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,200;0,300;1,100;1,200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,200;0,300;1,100;1,200&family=Noto+Serif&display=swap');
@@ -31,8 +31,7 @@ $utilities: map-merge(
 }
 
 body {
-  font-size: larger !important;
-  font-family: 'Noto Serif', sans-serif;
+  font-family: monospace;
   font-weight: 400;
 }
 

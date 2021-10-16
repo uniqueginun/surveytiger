@@ -16242,8 +16242,7 @@ textarea.form-control-lg {
 }
 
 body {
-  font-size: larger !important;
-  font-family: "Noto Serif", sans-serif;
+  font-family: monospace;
   font-weight: 400;
 }
 

@@ -8,12 +8,12 @@
 
       <template #form>
           <div @mouseenter="handleMouseEvent('enter')" @mouseleave="handleMouseEvent('out')">
-              <h4 v-if="!enableEdit" class="d-flex justify-content-between align-items-center p-3" :class="{'bg-light': showEditButton}">
+              <div v-if="!enableEdit" class="d-flex justify-content-between align-items-center p-3" :class="{'bg-light': showEditButton}">
                   <span>{{ survey.name }}</span>
                   <a @click="enableEdit = true" v-if="showEditButton" type="button">
                       <i class="fas fa-pencil text-dark"></i>
                   </a>
-              </h4>
+              </div>
               <h4 v-if="enableEdit" class="d-flex justify-content-end align-items-center">
                   <a type="button" @click="enableEdit = false"> <i class="fas fa-times text-danger"></i> </a>
               </h4>

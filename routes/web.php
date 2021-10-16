@@ -4,6 +4,7 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\SurveyDesignController;
 use App\Http\Controllers\SurveyDesignStoreController;
 use App\Http\Controllers\SurveyQuestionUpdateController;
+use App\Http\Controllers\SurveySendResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,7 +45,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::delete('/{survey}', [SurveyController::class, 'destroy'])->name('destroy');
         Route::get('/{survey}/desgin', SurveyDesignController::class)->name('design');
         Route::post('/{survey}/desgin', SurveyDesignStoreController::class);
-        Route::put('/{survey}/design/{question}/update', SurveyQuestionUpdateController::class)->name('question.update');
+        Route::put('/{survey}/design/{question}/update', SurveyQuestionUpdateController::class)
+            ->name('question.update');
+
+        Route::post('/{survey}/sendResponse', SurveySendResponse::class)
+            ->name('sendResponse');
     });
 
 });
