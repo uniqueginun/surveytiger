@@ -3,12 +3,13 @@
         <component
             v-for="(question, index) of survey.questions"
             :is="question.type.name"
-            v-show="isActive(index)"
+            v-show="showQuestion(index)"
             :key="question.id"
             :question="question"
             :last="index ===  survey.questions.length-1"
             @skip-question="nextQuestion"
         />
+        <button @click.prevent="$store.dispatch('submitForm')" class="btn btn-outline-primary">Confirm Answers</button>
     </div>
 </template>
 
@@ -37,12 +38,6 @@ export default {
         Textbox
     },
 
-    data() {
-        return {
-            activeIndex: 0
-        }
-    },
-
     methods: {
         isActive(index) {
             return parseInt(index) === parseInt(this.activeIndex);
@@ -51,12 +46,29 @@ export default {
         nextQuestion() {
 
             if(this.activeIndex+1 === this.survey.questions.length) {
-                console.log('last')
                return;
             }
 
-            this.activeIndex++;
+            this.$store.commit('increment');
+        },
+
+        showQuestion(index) {
+            return (this.isActive(index) || this.previewResults);
         }
+    },
+
+    computed: {
+        activeIndex() {
+            return this.$store.getters.activeIndex;
+        },
+
+        previewResults() {
+            return this.$store.getters.previewResults;
+        }
+    },
+
+    created() {
+        this.$store.commit('setSurvey', this.survey)
     }
 }
 </script>

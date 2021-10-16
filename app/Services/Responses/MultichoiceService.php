@@ -7,17 +7,11 @@ use App\Models\Survey;
 class MultichoiceService extends AnswerDatabaseStorage implements SurveyResponseInterface
 {
 
-    public function storeResponse($data): bool
+    public function storeResponse($data, $question_id): bool
     {
         foreach($data as $answer)
         {
 
         }
-    }
-
-    public function forSurvey(Survey $survey): SurveyResponseInterface
-    {
-        $this->survey = $survey;
-        return $this;
     }
 }

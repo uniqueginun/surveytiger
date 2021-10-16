@@ -15,7 +15,7 @@
                 v-bind="dragOptions"
                 @end="drag=false"
                 @start="drag=true"
-                @update="updateForm">
+            >
                 <template #item="{element}">
                     <div class="list-group-item">{{ element.name }}</div>
                 </template>
@@ -41,8 +41,12 @@ export default {
     },
 
     methods: {
-        updateForm() {
-            this.$emit('update-form', this.answers, 'ranking');
+        sendResponse() {
+            this.$store.dispatch('setFormElement', {
+                type: 'ranking',
+                question_id: this.question.id,
+                value: this.answers
+            });
         }
     },
 

@@ -3,7 +3,7 @@
         <survey-response-form @skipped="skip" @submitted="sendResponse">
             <template #title> {{ question.question_text }}</template>
             <div>
-                <input type="text" @input="setFormValue" class="form-control" maxlength="255">
+                <input type="text" v-model="textAnswer" class="form-control" maxlength="255">
             </div>
         </survey-response-form>
     </div>
@@ -17,9 +17,19 @@ export default {
 
     mixins: [responseFormMixin],
 
+    data() {
+        return {
+            textAnswer: ''
+        }
+    },
+
     methods: {
-        setFormValue(e) {
-            this.$emit('update-form', e.target.value, 'textbox');
+        sendResponse() {
+            this.$store.dispatch('setFormElement', {
+                type: 'textbox',
+                question_id: this.question.id,
+                value: this.textAnswer
+            });
         }
     }
 }

@@ -24,11 +24,17 @@ export default {
 
     data() {
         return {
-            multichoice: [],
+            multichoice: []
+        }
+    },
 
-            form: this.$inertia.form({
-                multichoice: []
-            }),
+    methods: {
+        sendResponse() {
+            this.$store.dispatch('setFormElement', {
+                type: 'multichoice',
+                question_id: this.question.id,
+                value: this.multichoice
+            });
         }
     }
 }

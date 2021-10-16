@@ -6,7 +6,7 @@ use App\Models\Survey;
 
 interface SurveyResponseInterface
 {
-    public function forSurvey(Survey $survey): self;
+    public function forSurvey(Survey $survey);
 
-    public function storeResponse($data): Bool;
+    public function storeResponse($data, $question_id): Bool;
 }

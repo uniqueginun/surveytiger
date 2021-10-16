@@ -19,7 +19,9 @@ export default {
     mixins: [responseFormMixin],
 
     data: () => ({
-        center: 30
+        center: 30,
+
+        slider: 0,
     }),
 
     computed: {
@@ -33,8 +35,16 @@ export default {
     },
 
     methods: {
+        sendResponse() {
+            this.$store.dispatch('setFormElement', {
+                type: 'slider',
+                question_id: this.question.id,
+                value: this.slider
+            });
+        },
+
         setSlider(v) {
-            this.$emit('update-form', v, 'slider');
+            this.slider = v;
         }
     },
 

@@ -13,7 +13,7 @@
                             v-on:click="$emit('skipped')">Skip question
                     </button>
                     <button :class="{'mx-3': !isLast }" class="btn btn-outline-success btn-sm" type="submit">
-                        {{ isLast ? 'Send Response' : 'Next' }}
+                        Next
                     </button>
                 </div>
             </div>

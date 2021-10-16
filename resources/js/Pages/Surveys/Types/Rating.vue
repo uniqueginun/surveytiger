@@ -21,7 +21,7 @@
 
 <script>
 import StarRating from 'vue-star-rating';
-import { responseFormMixin } from "../../../Utils/minxin";
+import {responseFormMixin} from "../../../Utils/minxin";
 
 export default {
     name: "Rating",
@@ -34,6 +34,15 @@ export default {
     }),
 
     methods: {
+        sendResponse() {
+            const answer = this.getAnswer(this.rating - 1);
+            this.$store.dispatch('setFormElement', {
+                type: 'rating',
+                question_id: this.question.id,
+                value: answer.id
+            });
+        },
+
         showRating(r) {
             this.setRatingText(r);
         },
@@ -43,9 +52,8 @@ export default {
             this.ratingText = answer.answer_text;
         },
 
-        setRating(rating) {
-            const answer = this.getAnswer(rating - 1);
-            this.$emit('update-form', answer.id, 'rating');
+        setRating(r) {
+            this.rating = r;
         },
 
         getAnswer(index) {

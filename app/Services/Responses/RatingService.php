@@ -2,11 +2,11 @@
 
 namespace App\Services\Responses;
 
-class RatingService implements SurveyResponseInterface
+class RatingService extends AnswerDatabaseStorage implements SurveyResponseInterface
 {
 
-    public function storeResponse($data): bool
+    public function storeResponse($data, $question_id): bool
     {
-        // TODO: Implement storeResponse() method.
+        $this->saveAnswer($data, $question_id);
     }
 }

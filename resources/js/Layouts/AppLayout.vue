@@ -267,6 +267,7 @@ export default {
 
 <style>
     .nav-link.active {
-        font-weight: 400;
+        font-weight: 900;
+        font-size: 15px;
     }
 </style>

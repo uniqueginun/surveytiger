@@ -48,8 +48,7 @@ export default defineComponent({
 
 <style scoped>
 .survey-nav {
-    --bs-breadcrumb-divider: url(
-    data:image/svg + xml, width= "8" height= "8" path= "M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z" fill= "currentColor");
+    --bs-breadcrumb-divider: '>';
 }
 
 ol.breadcrumb {
