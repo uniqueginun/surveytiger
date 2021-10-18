@@ -4,10 +4,23 @@ namespace App\Services\Responses;
 
 use App\Models\Survey;
 use App\Models\SurveyResponse;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 abstract class AnswerDatabaseStorage
 {
-    public $survey;
+    public Survey $survey;
+
+    public string $identifier = '';
+
+    protected function answerBody(): array
+    {
+        return array(
+            'user_agent' => request()->userAgent(),
+            'ip_address' => request()->ip(),
+            'survey_id' => $this->survey->id,
+            'identifier' => $this->identifier
+        );
+    }
 
     public function forSurvey(Survey $survey): self
     {
@@ -16,16 +29,19 @@ abstract class AnswerDatabaseStorage
         return $this;
     }
 
-    protected function saveAnswer($answer, $question): SurveyResponse
+    public function setIdentifier(string $identifier): self
     {
-        return SurveyResponse::create([
-            'user_agent' => request()->userAgent(),
-            'ip_address' => request()->ip(),
-            'survey_id' => $this->survey->id,
-            'question_id' => $question,
-            'offered_answer_id' => $answer,
-            'answer_text' => $answer,
-            'order' => $answer
-        ]);
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    protected function saveAnswer(array $answer): int|null
+    {
+        $response = SurveyResponse::create(
+            array_merge($this->answerBody(), $answer)
+        );
+
+        return $response?->id;
     }
 }

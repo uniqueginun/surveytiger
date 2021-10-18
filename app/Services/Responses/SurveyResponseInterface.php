@@ -8,5 +8,5 @@ interface SurveyResponseInterface
 {
     public function forSurvey(Survey $survey);
 
-    public function storeResponse($data, $question_id): Bool;
+    public function storeResponse($data, $question_id);
 }

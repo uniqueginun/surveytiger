@@ -2,11 +2,18 @@
 
 namespace App\Services\Responses;
 
-class DropdownService implements SurveyResponseInterface
+class DropdownService extends AnswerDatabaseStorage implements SurveyResponseInterface
 {
 
-    public function storeResponse($data): bool
+    public function storeResponse($data, $question_id)
     {
-        // TODO: Implement storeResponse() method.
+        $payload = array(
+            'question_id' => $question_id,
+            'offered_answer_id' => $data,
+            'answer_text' => '',
+            'order' => 0
+        );
+
+        return $this->saveAnswer($payload);
     }
 }

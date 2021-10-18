@@ -2,16 +2,20 @@
 
 namespace App\Services\Responses;
 
-use App\Models\Survey;
-
 class MultichoiceService extends AnswerDatabaseStorage implements SurveyResponseInterface
 {
 
-    public function storeResponse($data, $question_id): bool
+    public function storeResponse($data, $question_id)
     {
-        foreach($data as $answer)
-        {
-
-        }
+        return collect($data)->map(function ($answer) use ($question_id) {
+            return $this->saveAnswer(
+                array(
+                    'question_id' => $question_id,
+                    'offered_answer_id' => $answer,
+                    'answer_text' => '',
+                    'order' => 0
+                )
+            );
+        })->flatten()->toArray();
     }
 }

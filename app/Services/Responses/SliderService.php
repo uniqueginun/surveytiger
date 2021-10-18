@@ -2,11 +2,16 @@
 
 namespace App\Services\Responses;
 
-class SliderService implements SurveyResponseInterface
+class SliderService extends AnswerDatabaseStorage implements SurveyResponseInterface
 {
 
-    public function storeResponse($data): bool
+    public function storeResponse($data, $question_id)
     {
-        // TODO: Implement storeResponse() method.
+        return $this->saveAnswer(array(
+            'question_id' => $question_id,
+            'offered_answer_id' => $data,
+            'answer_text' => '',
+            'order' => 0
+        ));
     }
 }

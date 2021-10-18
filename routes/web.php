@@ -3,6 +3,7 @@
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\SurveyDesignController;
 use App\Http\Controllers\SurveyDesignStoreController;
+use App\Http\Controllers\SurveyPreviewResponseController;
 use App\Http\Controllers\SurveyQuestionUpdateController;
 use App\Http\Controllers\SurveySendResponse;
 use Illuminate\Foundation\Application;
@@ -53,3 +54,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
 });
+
+Route::get('/{survey}/preview-response/{identifier?}', SurveyPreviewResponseController::class)
+    ->name('surveys.preview-result');

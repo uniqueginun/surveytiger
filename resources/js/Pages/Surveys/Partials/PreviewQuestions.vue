@@ -9,7 +9,6 @@
             :last="index ===  survey.questions.length-1"
             @skip-question="nextQuestion"
         />
-        <button @click.prevent="$store.dispatch('submitForm')" class="btn btn-outline-primary">Confirm Answers</button>
     </div>
 </template>
 
@@ -53,17 +52,13 @@ export default {
         },
 
         showQuestion(index) {
-            return (this.isActive(index) || this.previewResults);
+            return this.isActive(index);
         }
     },
 
     computed: {
         activeIndex() {
             return this.$store.getters.activeIndex;
-        },
-
-        previewResults() {
-            return this.$store.getters.previewResults;
         }
     },
 

@@ -6,7 +6,14 @@ export const responseFormMixin = {
         SurveyResponseForm
     },
 
-    props: ['last', 'question'],
+    props: {
+        last: Boolean,
+        question: Object,
+        preview: {
+            type: Boolean,
+            default: false
+        }
+    },
 
     methods: {
         sendResponse() {

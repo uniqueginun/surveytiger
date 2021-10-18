@@ -1,5 +1,6 @@
 import {createStore} from 'vuex'
 import { Inertia } from '@inertiajs/inertia'
+import dispatch from "alpinejs";
 
 export default createStore({
     state() {
@@ -12,7 +13,7 @@ export default createStore({
     getters: {
         activeIndex: state => state.activeIndex,
 
-        previewResults: state => state.survey.questions.length === state.activeIndex
+        questions: state => state.survey?.questions || []
     },
     mutations: {
         increment: state => state.activeIndex++,
@@ -24,9 +25,16 @@ export default createStore({
         setSurvey: (state, survey) => state.survey = survey
     },
     actions: {
-        setFormElement: ({commit}, payload) => {
+        setFormElement: ({ getters, commit, dispatch}, payload) => {
             commit('submitted', payload)
-            commit('increment')
+
+            if (getters.activeIndex + 1 === getters.questions.length) {
+                dispatch('submitForm').then((response) => {
+                    console.log(response)
+                })
+            } else {
+                commit('increment')
+            }
         },
 
         submitForm: ({state, commit}) => {
@@ -35,7 +43,7 @@ export default createStore({
                 return
             }
 
-            Inertia.post(route('surveys.sendResponse', state.survey.id), state.payload, {
+            return Inertia.post(route('surveys.sendResponse', state.survey.id), state.payload, {
                 preserveScroll: () => true,
                 onFinish: () => alert('thank you for your time!'),
                 onError: () => alert('something went wrong and we couldn\'t handle your request.')
