@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center mb-3">
-        <survey-response-form @skipped="skip" @submitted="sendResponse" :canbeskipped="last">
+        <survey-response-form @skipped="skip" @submitted="sendResponse" :canbeskipped="last" v-if="!preview">
             <template #title> {{ question.question_text }}</template>
             <draggable
                 :component-data="{
@@ -21,12 +21,23 @@
                 </template>
             </draggable>
         </survey-response-form>
+        <preview-card v-else :questiontext="question.question_text">
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item d-flex justify-content-between align-items-start" v-for="(item, index) of question.question_results" :key="index">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{ item.answer_text }}</div>
+                    </div>
+                    <span class="badge bg-success rounded-pill">{{ item.answer_count }}</span>
+                </li>
+            </ol>
+        </preview-card>
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import {responseFormMixin} from "../../../Utils/minxin";
+import PreviewCard from "../Previews/PreviewCard";
 
 export default {
     name: "Ranking",
@@ -55,6 +66,7 @@ export default {
     },
 
     components: {
+        PreviewCard,
         draggable
     },
     computed: {

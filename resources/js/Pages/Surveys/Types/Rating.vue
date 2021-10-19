@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center mb-3">
-        <survey-response-form @skipped="skip" @submitted="sendResponse">
+        <survey-response-form @skipped="skip" @submitted="sendResponse" v-if="!preview">
             <template #title> {{ question.question_text }}</template>
             <div class="d-flex align-items-center">
                 <star-rating
@@ -10,18 +10,36 @@
                     :show-rating="false"
                     :star-size="30"
                     active-color="#38c172"
+                    inactive-color="#cbecd9"
                     @update:rating="setRating"
                     @hover:rating="showRating"
                 />
                 <div>{{ ratingText }}</div>
             </div>
         </survey-response-form>
+        <preview-card v-else :questiontext="question.question_text">
+            <div class="d-flex align-items-center">
+                <star-rating
+                    :max-rating="maxRating"
+                    :rating="rating"
+                    :show-rating="false"
+                    :star-size="30"
+                    active-color="#38c172"
+                    inactive-color="#cbecd9"
+                    :read-only="true"
+                    @update:rating="setRating"
+                    @hover:rating="showRating"
+                />
+                <div>{{ ratingText }}</div>
+            </div>
+        </preview-card>
     </div>
 </template>
 
 <script>
 import StarRating from 'vue-star-rating';
 import {responseFormMixin} from "../../../Utils/minxin";
+import PreviewCard from "../Previews/PreviewCard";
 
 export default {
     name: "Rating",
@@ -68,10 +86,15 @@ export default {
     },
 
     components: {
+        PreviewCard,
         StarRating
     },
 
     created() {
+        if (this.preview && this.question?.question_results) {
+            const index = this.question.answers.findIndex(item => item.id == this.question.question_results);
+            this.rating = (index + 1);
+        }
         this.setRatingText(this.rating);
     }
 }

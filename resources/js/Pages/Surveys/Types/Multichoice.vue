@@ -10,37 +10,22 @@
                 </label>
             </div>
         </survey-response-form>
-        <form v-else>
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-header">{{ question.question_text }}</div>
-                    <div class="card-body">
-                        <div v-for="(answer, index) of answers" :key="index" class="progress mb-2" style="height: 2rem;">
-                            <div
-                                aria-valuemax="100"
-                                aria-valuemin="0"
-                                :aria-valuenow="answer.percentage"
-                                class="progress-bar"
-                                role="progressbar"
-                                :style="`width: ${answer.percentage}%`">
-                                {{ answer.answer_text }} ({{ answer.percentage }}%)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+        <preview-percentage v-else :question="question" />
     </div>
 </template>
 
 <script>
 
-import {responseFormMixin} from "../../../Utils/minxin";
+import { responseFormMixin } from "../../../Utils/minxin";
+
+import PreviewPercentage from "../Previews/PreviewPercentage";
 
 export default {
     name: "Multichoice",
 
-    mixins: [responseFormMixin],
+    components: { PreviewPercentage },
+
+    mixins: [ responseFormMixin ],
 
     data() {
         return {
@@ -56,40 +41,6 @@ export default {
                 value: this.multichoice
             });
         },
-
-        getPercentage(id) {
-            return (this.results[id] / this.total) * 100;
-        }
-    },
-
-    computed: {
-        results() {
-            return Object.assign(
-                {},
-                ...(this.question.question_results.map(item => {
-                    return {[item.id]: item.answer_count};
-                }))
-            );
-        },
-
-        total() {
-            return Object.values(this.results).reduce((a, b) => a + b, 0);
-        },
-
-        answers() {
-            return this.question.answers.map((answer) => {
-                answer['percentage'] = this.getPercentage(answer.id);
-                return answer;
-            })
-        }
     }
 }
 </script>
-
-<style scoped>
-    .progress-bar {
-        background-color: #38c172;
-        text-align: start;
-        padding-left: 10px;
-    }
-</style>
