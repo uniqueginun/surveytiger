@@ -8,7 +8,7 @@ export default createStore({
             activeIndex: 0,
             payload: [],
             anonymous: false,
-            successResponse: true
+            successResponse: null
         }
     },
     getters: {

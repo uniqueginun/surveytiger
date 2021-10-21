@@ -10,4 +10,9 @@ class SurveyResponse extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function scopeTakenBy($builder, $conditions)
+    {
+        $builder->where($conditions);
+    }
 }

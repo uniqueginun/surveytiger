@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Survey extends Model
@@ -31,5 +32,18 @@ class Survey extends Model
     {
         return $this->belongsToMany(Question::class, 'question_surveys')
                     ->withPivot('question_type_id', 'min', 'max', 'center', 'scale');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(SurveyResponse::class);
+    }
+
+    public function alreadyTakenBythisDevice(Request $request)
+    {
+        return !! $this->responses()->takenBy([
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent()
+        ])->exists();
     }
 }

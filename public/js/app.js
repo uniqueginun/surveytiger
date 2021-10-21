@@ -25518,7 +25518,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ThankYouForTaking.vue",
   mounted: function mounted() {
-    var myOffcanvas = document.getElementById('offcanvasTop');
+    var myOffcanvas = document.getElementById("offcanvasTop");
     var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas);
     bsOffcanvas.show();
   }
@@ -31759,7 +31759,7 @@ var _hoisted_1 = {
   "class": "container-fluid"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"offcanvas offcanvas-top bg-indigo text-white text-center\" tabindex=\"-1\" id=\"offcanvasTop\" data-bs-scroll=\"true\" data-bs-backdrop=\"false\" aria-labelledby=\"offcanvasTopLabel\" data-v-693a1a5a><div class=\"offcanvas-header\" data-v-693a1a5a><button type=\"button\" class=\"btn-close text-reset\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\" data-v-693a1a5a></button></div><div class=\"offcanvas-body text-center\" data-v-693a1a5a><h4 data-v-693a1a5a>Thank you for taking this survey</h4></div></div><div class=\"container d-flex align-items-center justify-content-center\" data-v-693a1a5a><div class=\"row justify-content-center\" data-v-693a1a5a><div class=\"col-12\" data-v-693a1a5a> Create and edit your own survey, create account now </div></div></div>", 2);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"offcanvas offcanvas-top bg-indigo text-white text-center\" tabindex=\"-1\" id=\"offcanvasTop\" data-bs-scroll=\"true\" data-bs-backdrop=\"false\" aria-labelledby=\"offcanvasTopLabel\" data-v-693a1a5a><div class=\"offcanvas-header\" data-v-693a1a5a><button type=\"button\" class=\"btn-close text-reset\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\" data-v-693a1a5a></button></div><div class=\"offcanvas-body text-center\" data-v-693a1a5a><h4 data-v-693a1a5a>Thank you for taking this survey</h4></div></div><div class=\"container-div d-flex align-items-center justify-content-center flex-column\" data-v-693a1a5a><div class=\"row justify-content-center text-center mb-5\" data-v-693a1a5a><div class=\"col-12\" data-v-693a1a5a>logo here</div></div><div class=\"row justify-content-center text-center\" data-v-693a1a5a><div class=\"col-12\" data-v-693a1a5a><h2 data-v-693a1a5a>TigerMonkey (SVMK Inc.) is now Momentive</h2><h6 class=\"text-muted mt-4 text-lg\" data-v-693a1a5a> Learn more about the AI-driven solutions we&#39;re developing to help decision-makers shape truly exceptional experiences. </h6></div><div class=\"col-12 mt-3\" data-v-693a1a5a><button class=\"btn btn-success btn-lg text-white\" data-v-693a1a5a>Learn more</button></div></div></div>", 2);
 
 var _hoisted_4 = [_hoisted_2];
 
@@ -33203,7 +33203,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       activeIndex: 0,
       payload: [],
       anonymous: false,
-      successResponse: true
+      successResponse: null
     };
   },
   getters: {
@@ -38769,7 +38769,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.offcanvas-top[data-v-693a1a5a] {\n    height: 15vh !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.offcanvas-top[data-v-693a1a5a] {\n  height: 15vh !important;\n}\n.container-div[data-v-693a1a5a] {\n  margin-top: 30vh;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
