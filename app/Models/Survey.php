@@ -44,6 +44,6 @@ class Survey extends Model
         return !! $this->responses()->takenBy([
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent()
-        ])->exists();
+        ])->recently()->exists();
     }
 }

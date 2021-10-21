@@ -15,4 +15,12 @@ class SurveyResponse extends Model
     {
         $builder->where($conditions);
     }
+
+    public function scopeRecently($builder, $subMinutes = 5)
+    {
+        $builder->whereBetween(
+            'created_at', 
+            [now()->subMinutes($subMinutes), now()->subSeconds(5)]
+        );
+    }
 }
