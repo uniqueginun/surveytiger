@@ -3,9 +3,10 @@
         <template #header>
             <h2 class="h4 font-weight-bold">Survey's Result preview</h2>
         </template>
+
         <div class="container">
             <component
-                v-for="(question, index) of resultSet"
+                v-for="question of resultSet"
                 :is="question.type.name"
                 :key="question.id"
                 :question="question"

@@ -10,8 +10,9 @@ use Illuminate\Support\Str;
 class SurveySendResponse extends Controller
 {
 
-    public function __invoke(Request $request, Survey $survey)
+    public function __invoke(Request $request, Survey $survey, $anonymous = 'false')
     {
+
         DB::beginTransaction();
 
         $responseIdentifier = Str::uuid()->toString();
@@ -35,6 +36,10 @@ class SurveySendResponse extends Controller
 
         } catch (\Throwable $exception) {
             DB::rollBack();
+        }
+
+        if ($anonymous !== 'false') {
+            return back()->with('success', true);
         }
 
         return redirect()->route('surveys.preview-result', [

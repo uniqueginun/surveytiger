@@ -1,19 +1,24 @@
 import {createStore} from 'vuex'
-import { Inertia } from '@inertiajs/inertia'
-import dispatch from "alpinejs";
+import {Inertia} from '@inertiajs/inertia'
 
 export default createStore({
     state() {
         return {
             survey: null,
             activeIndex: 0,
-            payload: []
+            payload: [],
+            anonymous: false,
+            successResponse: true
         }
     },
     getters: {
         activeIndex: state => state.activeIndex,
 
-        questions: state => state.survey?.questions || []
+        questions: state => state.survey?.questions || [],
+
+        answered: (state) => state.payload.length,
+
+        successResponse: state => state.successResponse
     },
     mutations: {
         increment: state => state.activeIndex++,
@@ -22,10 +27,14 @@ export default createStore({
             state.payload = [...state.payload, payload];
         },
 
-        setSurvey: (state, survey) => state.survey = survey
+        setSurvey: (state, survey) => state.survey = survey,
+
+        answerAnonymously: (state) => state.anonymous = true,
+
+        setSuccessResponse: state => state.successResponse = true
     },
     actions: {
-        setFormElement: ({ getters, commit, dispatch}, payload) => {
+        setFormElement: ({getters, commit, dispatch}, payload) => {
             commit('submitted', payload)
 
             if (getters.activeIndex + 1 === getters.questions.length) {
@@ -38,15 +47,19 @@ export default createStore({
         },
 
         submitForm: ({state, commit}) => {
-            if (! state.payload.length) {
+            if (!state.payload.length) {
                 alert('you haven\'t answered any of our questions');
                 return
             }
 
-            return Inertia.post(route('surveys.sendResponse', state.survey.id), state.payload, {
+            const anon = state.anonymous ? 'true' : 'false';
+
+            return Inertia.post(route('surveys.sendResponse', [state.survey.id, anon]), state.payload, {
                 preserveScroll: () => true,
-                onFinish: () => alert('thank you for your time!'),
-                onError: () => alert('something went wrong and we couldn\'t handle your request.')
+                onFinish: () => {
+                    commit('setSuccessResponse')
+                },
+                onError: () => toaster('something went wrong and we couldn\'t handle your request.')
             })
         }
     }

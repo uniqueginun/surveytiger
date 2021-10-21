@@ -12,7 +12,7 @@ class SurveyController extends Controller
 {
     public function index(Request $request)
     {
-        $surveys = $request->user()->surveys()->get();
+        $surveys = $request->user()->surveys()->withCount('questions')->get();
 
         return Inertia::render('Surveys/Index', [
             'surveys' => $surveys
@@ -20,7 +20,7 @@ class SurveyController extends Controller
     }
 
     public function create()
-    {  
+    {
         return Inertia::render('Surveys/Create', [
             'categories' => Category::all()
         ]);
