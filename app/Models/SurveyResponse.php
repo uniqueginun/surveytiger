@@ -20,7 +20,7 @@ class SurveyResponse extends Model
     {
         $builder->whereBetween(
             'created_at', 
-            [now()->subMinutes($subMinutes), now()->subSeconds(5)]
+            [now()->subMinutes($subMinutes), now()->subSeconds(3)]
         );
     }
 }

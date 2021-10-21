@@ -1,1 +1,1 @@
-{{ $exception->getMessage() }}
+<x-error-page :code="$exception->getStatusCode()" :message="$exception->getMessage()" />

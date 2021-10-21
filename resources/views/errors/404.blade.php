@@ -1,0 +1,1 @@
+<x-error-page code="404" message="You have lost your way! you can still go home by clicking button bellow" />
