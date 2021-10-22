@@ -26139,7 +26139,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       has && triggerEmit();
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_3__.watch)(ratingScale, function (count, old) {
-      if (count < old) {
+      if (parseInt(count) < parseInt(old)) {
         var filteredItems = scaleLablesArray.value.filter(function (_, index) {
           return index < count;
         });
@@ -32707,13 +32707,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
     "for": "ratingScale",
     "class": "lables",
-    value: "Rating Scale"
+    value: "Rating Scale (5 - 10)"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
     type: "number",
     modelValue: $setup.ratingScale,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.ratingScale = $event;
-    })
+    }),
+    max: 10,
+    min: 5,
+    step: 5
   }, null, 8
   /* PROPS */
   , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_checkbox, {

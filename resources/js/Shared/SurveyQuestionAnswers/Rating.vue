@@ -64,7 +64,7 @@ export default {
     });
 
     watch(ratingScale, (count, old) => {
-      if (count < old) {
+      if (parseInt(count) < parseInt(old)) {
         const filteredItems = scaleLablesArray.value.filter(
           (_, index) => index < count
         );
@@ -98,8 +98,8 @@ export default {
 
 <template>
   <div class="w-100 mb-3">
-    <jet-label for="ratingScale" class="lables" value="Rating Scale" />
-    <jet-input type="number" v-model="ratingScale" />
+    <jet-label for="ratingScale" class="lables" value="Rating Scale (5 - 10)" />
+    <jet-input type="number" v-model="ratingScale" :max="10" :min="5" :step="5" />
   </div>
   <div
     class="w-100 mb-4 d-flex flex-row align-items-center justify-content-start"
