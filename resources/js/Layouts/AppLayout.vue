@@ -11,6 +11,7 @@
         text-white
         border-bottom
         sticky-top
+        p-0
       "
     >
       <div class="container">

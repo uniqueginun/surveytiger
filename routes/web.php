@@ -5,6 +5,7 @@ use App\Http\Controllers\SurveyDesignController;
 use App\Http\Controllers\SurveyDesignStoreController;
 use App\Http\Controllers\SurveyPreviewResponseController;
 use App\Http\Controllers\SurveyQuestionUpdateController;
+use App\Http\Controllers\SurveyResultController;
 use App\Http\Controllers\SurveySendResponse;
 use App\Http\Controllers\SurveySharingController;
 use Illuminate\Foundation\Application;
@@ -29,7 +30,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
@@ -46,6 +47,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::put('/{survey}', [SurveyController::class, 'update'])->name('update');
         Route::delete('/{survey}', [SurveyController::class, 'destroy'])->name('destroy');
         Route::get('/{survey}/desgin', SurveyDesignController::class)->name('design');
+        Route::get('/{survey}/preview-response/{identifier?}', SurveyPreviewResponseController::class)->name('preview-result');
         Route::post('/{survey}/desgin', SurveyDesignStoreController::class);
 
         Route::put(
@@ -56,11 +58,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
 });
-
-Route::get(
-    '/{survey}/preview-response/{identifier?}',
-    SurveyPreviewResponseController::class
-)->name('surveys.preview-result');
 
 Route::get(
     '/ts/{survey:uuid}',

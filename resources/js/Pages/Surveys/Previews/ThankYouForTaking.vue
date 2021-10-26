@@ -21,7 +21,15 @@
       </div>
     </div>
 
-    <div class="container-div d-flex align-items-center justify-content-center flex-column">
+    <div
+      class="
+        container-div
+        d-flex
+        align-items-center
+        justify-content-center
+        flex-column
+      "
+    >
       <div class="row justify-content-center text-center mb-5">
         <div class="col-12">logo here</div>
       </div>
@@ -34,7 +42,9 @@
           </h6>
         </div>
         <div class="col-12 mt-3">
-          <button class="btn btn-success btn-lg text-white">Learn more</button>
+          <Link :href="route('home')" class="btn btn-success btn-lg text-white"
+            >Learn more</Link
+          >
         </div>
       </div>
     </div>
@@ -42,8 +52,14 @@
 </template>
 
 <script>
+import { Link } from "@inertiajs/inertia-vue3";
+
 export default {
   name: "ThankYouForTaking.vue",
+
+  components: {
+    Link,
+  },
 
   mounted() {
     var myOffcanvas = document.getElementById("offcanvasTop");

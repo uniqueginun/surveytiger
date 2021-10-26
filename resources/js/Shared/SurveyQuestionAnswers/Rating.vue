@@ -70,13 +70,15 @@ export default {
         );
         scaleLablesArray.value = filteredItems;
       } else {
-        scaleLablesArray.value.push({id: '', answer_text: `${count}`});
+        for (let index = 1; index <= 5; index++) {
+          scaleLablesArray.value.push({ id: "", answer_text: `${old+index}` });
+        }
       }
       triggerEmit();
     });
 
     const answer_texts = computed(() => {
-      return scaleLablesArray.value.map(item => item.answer_text);
+      return scaleLablesArray.value.map((item) => item.answer_text);
     });
 
     watch(
@@ -90,7 +92,7 @@ export default {
       ratingScale,
       hasLabels,
       ratingScaleArray,
-      scaleLablesArray
+      scaleLablesArray,
     };
   },
 };
@@ -99,7 +101,13 @@ export default {
 <template>
   <div class="w-100 mb-3">
     <jet-label for="ratingScale" class="lables" value="Rating Scale (5 - 10)" />
-    <jet-input type="number" v-model="ratingScale" :max="10" :min="5" :step="5" />
+    <jet-input
+      type="number"
+      v-model="ratingScale"
+      :max="10"
+      :min="5"
+      :step="5"
+    />
   </div>
   <div
     class="w-100 mb-4 d-flex flex-row align-items-center justify-content-start"

@@ -14,7 +14,8 @@ class SurveyPreviewResponseController extends Controller
         $resultSet = SurveyResults::for($survey)->with($identifier)->getResults();
 
         return Inertia::render('Surveys/Preview', [
-            'resultSet' => $resultSet
+            'resultSet' => $resultSet,
+            'survey' => $survey
         ]);
     }
 }

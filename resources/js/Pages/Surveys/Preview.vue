@@ -1,7 +1,7 @@
 <template>
     <app-layout title="Dashboard">
         <template #header>
-            <h2 class="h4 font-weight-bold">Survey's Result preview</h2>
+            <h2 class="h4 font-weight-bold"><strong>{{ survey.name }}</strong></h2>
         </template>
 
         <div class="container">
@@ -28,7 +28,7 @@ import Slider from "./Types/Slider";
 import Textbox from "./Types/Textbox";
 
 export default defineComponent({
-    props: ['resultSet'],
+    props: ['resultSet', 'survey'],
 
     components: {
         AppLayout,
