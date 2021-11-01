@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QuestionSurvey extends Model
 {
@@ -15,12 +16,27 @@ class QuestionSurvey extends Model
 
     protected $appends = ['is_slider'];
 
-    public function type()
+    protected static function booted()
     {
-        return $this->belongsTo(QuestionType::class, 'question_type_id');
+        static::deleting(function ($model) {
+            $model->question->delete();
+        });
     }
 
-    public function getIsSliderAttribute()
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(
+            QuestionType::class,
+            'question_type_id'
+        );
+    }
+
+    public function getIsSliderAttribute(): bool
     {
         return $this->type->name === 'Slider';
     }

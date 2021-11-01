@@ -31,6 +31,7 @@ class SurveyQuestionDeleteController extends Controller
                 'message' => 'Question deleted successfully',
                 'type' => 'success',
             ];
+            
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             DB::rollBack();

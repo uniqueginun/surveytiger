@@ -11,6 +11,13 @@ class SurveyQuestionAnswer extends Model
 
     protected $guarded = [];
 
+    protected static function booted()
+    {
+        static::deleting(function ($model) {
+            $model->offeredAnswer()->delete();
+        });
+    }
+
     public function offeredAnswer()
     {
         return $this->hasOne(OfferedAnswer::class, 'id', 'offered_answer_id');

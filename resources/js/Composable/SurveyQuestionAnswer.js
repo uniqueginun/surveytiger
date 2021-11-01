@@ -31,11 +31,11 @@ export const useDeleteQuestion = (surveyId, questionId) => {
 
       isDeleting.value = true;
 
-      Inertia.delete(route('survey.question.delete', payload), {
+      Inertia.delete(route('surveys.question.delete', payload), {
          preserveScroll: true,
          onError: (error) => handleError(error),
-         onSuccess: (res) => {
-            console.log(res);
+         onSuccess: ({ props }) => {
+            handleSuccess(props.jetstream.flash.message);
          },
          always: () => isDeleting.value = false,
       });

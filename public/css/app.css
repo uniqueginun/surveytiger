@@ -16237,7 +16237,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.nav-link {
+.navbar-expand-md .nav-link {
   color: #fff !important;
 }
 

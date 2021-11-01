@@ -3,7 +3,7 @@
     <template #header>
       <h2 class="h4 font-weight-bold">My Surveys</h2>
     </template>
-    <survey-list :surveys="surveys"></survey-list>
+    <survey-list :surveys="surveys" :categories="categories"></survey-list>
   </app-layout>
 </template>
 
@@ -18,6 +18,10 @@ export default defineComponent({
       type: Array,
       default: [],
     },
+    categories: {
+      type: Array,
+      default: [],
+    }
   },
   components: {
     AppLayout,

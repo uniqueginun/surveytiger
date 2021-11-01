@@ -5,7 +5,8 @@ use App\Http\Controllers\SurveyDesignController;
 use App\Http\Controllers\SurveyDesignStoreController;
 use App\Http\Controllers\SurveyPreviewResponseController;
 use App\Http\Controllers\SurveyQuestionUpdateController;
-use App\Http\Controllers\SurveyResultController;
+use App\Http\Controllers\Api\SurveyQuestionDeleteController;
+use App\Http\Controllers\SurveyCloningController;
 use App\Http\Controllers\SurveySendResponse;
 use App\Http\Controllers\SurveySharingController;
 use Illuminate\Foundation\Application;
@@ -34,9 +35,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::redirect('/dashboard', 'surveys')->name('dashboard');
 
     Route::prefix('surveys')->as('surveys.')->group(function () {
         Route::get('/', [SurveyController::class, 'index'])->name('index');
@@ -49,11 +48,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/{survey}/desgin', SurveyDesignController::class)->name('design');
         Route::get('/{survey}/preview-response/{identifier?}', SurveyPreviewResponseController::class)->name('preview-result');
         Route::post('/{survey}/desgin', SurveyDesignStoreController::class);
+        Route::post('/survey/clone', SurveyCloningController::class)->name('clone');
 
         Route::put(
             '/{survey}/design/{question}/update',
             SurveyQuestionUpdateController::class
         )->name('question.update');
+
+        Route::delete(
+            'survey/{survey}/question/{question}', 
+            SurveyQuestionDeleteController::class
+        )->name('question.delete');
 
     });
 

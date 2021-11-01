@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\SurveyQuestionAnswersController;
-use App\Http\Controllers\Api\SurveyQuestionDeleteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +25,3 @@ Route::get(
     SurveyQuestionAnswersController::class
 );
 
-Route::delete(
-    'survey/{survey}/question/{question}', 
-    SurveyQuestionDeleteController::class
-)->name('survey.question.delete');

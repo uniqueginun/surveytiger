@@ -5,6 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -21,25 +23,34 @@ class Survey extends Model
         static::creating(function($model) {
             $model->uuid = Str::uuid()->toString();
         });
+
+        static::deleting(function ($model) {
+            $model->responses()->delete();
+        });
     }
 
-    public function getUpdatedAtAttribute($value)
+    public function questionSurvey()
+    {
+        return $this->hasMany(QuestionSurvey::class);
+    }
+
+    public function getUpdatedAtAttribute($value): string
     {
         return Carbon::parse($value)->diffForHumans();
     }
 
-    public function questions()
+    public function questions(): BelongsToMany
     {
         return $this->belongsToMany(Question::class, 'question_surveys')
                     ->withPivot('question_type_id', 'min', 'max', 'center', 'scale');
     }
 
-    public function responses()
+    public function responses(): HasMany
     {
         return $this->hasMany(SurveyResponse::class);
     }
 
-    public function alreadyTakenBythisDevice(Request $request)
+    public function alreadyTakenBythisDevice(Request $request): bool
     {
         return !! $this->responses()->takenBy([
             'ip_address' => $request->ip(),
