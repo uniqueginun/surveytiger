@@ -9,6 +9,7 @@ use App\Models\QuestionSurvey;
 use App\Models\Survey;
 use App\Models\SurveyQuestionAnswer;
 use App\Services\QuestionAnswerService;
+use App\Services\QuestionPayload;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
@@ -39,9 +40,13 @@ class SurveyQuestionUpdateController extends Controller
                 'scale' => $request->scale ?? 0
             ]);
 
+
             if($questionSurvey->type->has_answers && !!$request->answers) {
                 SurveyQuestionAnswer::where($condition)->delete();
-                QuestionAnswerService::update($request, $questionSurvey->fresh());
+                QuestionAnswerService::update(
+                    QuestionPayload::run($request->toArray()), 
+                    $questionSurvey->fresh()
+                );
             }
 
             DB::commit();

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Requests\SurveyQuestionStore;
 use App\Models\QuestionSurvey;
 
 class QuestionAnswerService
@@ -15,24 +14,25 @@ class QuestionAnswerService
       $this->questionSurvey = $questionSurvey;
    }
 
-   public static function create(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)
+
+   public static function create(array $request, QuestionSurvey $questionSurvey)
    {
       return (new static($questionSurvey))->createAnswers($request);
    }
 
-   public static function update(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)
+   public static function update(array $request, QuestionSurvey $questionSurvey)
    {
       return (new static($questionSurvey))->updateAnswers($request);
    }
 
-   protected function createAnswers(SurveyQuestionStore $request)
+   protected function createAnswers(array $request)
    {
       $answerClass = $this->getServiceClassName($request);
 
       return $answerClass::create($request, $this->questionSurvey);
    }
 
-   protected function updateAnswers(SurveyQuestionStore $request)
+   protected function updateAnswers(array $request)
    {
       $answerClass = $this->getServiceClassName($request);
 
@@ -41,7 +41,7 @@ class QuestionAnswerService
 
    private function getServiceClassName($request)
    {
-      return 'App\\Services\\QuestionAnswers\\' . $request->className();
+      return 'App\\Services\\QuestionAnswers\\' . $request['className'];
    }
 
 }

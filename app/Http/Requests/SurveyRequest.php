@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Survey;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SurveyRequest extends FormRequest
@@ -23,10 +24,6 @@ class SurveyRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id'
-        ];
+        return Survey::$rules;
     }
 }

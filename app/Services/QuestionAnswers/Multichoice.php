@@ -2,24 +2,23 @@
 
 namespace App\Services\QuestionAnswers;
 
-use App\Http\Requests\SurveyQuestionStore;
 use App\Models\QuestionSurvey;
 use App\Services\SurveyQuestionAnswer as ServicesSurveyQuestionAnswer;
 
 class Multichoice extends ServicesSurveyQuestionAnswer
 {
-   public static function create(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)
+   public static function create(array $request, QuestionSurvey $questionSurvey)
    {
       static::storeAnswers(
-         $request->answers, 
+         $request['answers'], 
          $questionSurvey
       );
    }
 
-   public static function update(SurveyQuestionStore $request, QuestionSurvey $questionSurvey)
+   public static function update(array $request, QuestionSurvey $questionSurvey)
    {
       static::storeAnswers(
-         $request->answers, 
+         $request['answers'], 
          $questionSurvey
       );
    }

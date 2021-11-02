@@ -29,6 +29,12 @@ class Survey extends Model
         });
     }
 
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'description' => 'required|string|max:255',
+        'category_id' => 'required|exists:categories,id'
+    ];
+
     public function questionSurvey()
     {
         return $this->hasMany(QuestionSurvey::class);

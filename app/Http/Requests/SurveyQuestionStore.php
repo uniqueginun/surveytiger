@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\QuestionType;
 
 class SurveyQuestionStore extends FormRequest
 {
@@ -29,10 +28,5 @@ class SurveyQuestionStore extends FormRequest
             'question_type_id' => 'required|integer|exists:question_types,id',
             'answers' => 'sometimes|nullable|array',
         ];
-    }
-
-    public function className()
-    {
-        return QuestionType::find($this->question_type_id)->component_name;
     }
 }

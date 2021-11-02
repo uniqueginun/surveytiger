@@ -26100,8 +26100,8 @@ __webpack_require__.r(__webpack_exports__);
     cloneSurvey: function cloneSurvey() {
       var _this2 = this;
 
-      this.prepareForm().then(function () {
-        _this2.form.post(route("surveys.clone"), {
+      this.prepareForm().then(function (form) {
+        form.post(route("surveys.clone"), {
           preserveScroll: true,
           onSuccess: function onSuccess() {
             _this2.form.reset();
@@ -26118,15 +26118,25 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       return new Promise(function (resolve) {
-        _this3.form.questions = _this3.form.questions.map(function (q) {
+        var payload = _this3.form;
+        payload.questions = payload.questions.map(function (q) {
+          var _q$pivot, _q$pivot2, _q$pivot3, _q$pivot4;
+
           return {
-            details: q.pivot,
+            question_text: q.question_text,
+            question_type_id: q.pivot.question_type_id,
+            min: (_q$pivot = q.pivot) === null || _q$pivot === void 0 ? void 0 : _q$pivot.min,
+            max: (_q$pivot2 = q.pivot) === null || _q$pivot2 === void 0 ? void 0 : _q$pivot2.max,
+            center: (_q$pivot3 = q.pivot) === null || _q$pivot3 === void 0 ? void 0 : _q$pivot3.center,
+            scale: (_q$pivot4 = q.pivot) === null || _q$pivot4 === void 0 ? void 0 : _q$pivot4.scale,
             answers: q.answers.map(function (answer) {
-              return answer.id;
+              return {
+                answer_text: answer.answer_text
+              };
             })
           };
         });
-        resolve();
+        resolve(payload);
       });
     },
     addQuestion: function addQuestion(q) {

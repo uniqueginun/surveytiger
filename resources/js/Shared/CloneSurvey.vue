@@ -217,8 +217,8 @@ export default {
 
   methods: {
     cloneSurvey() {
-      this.prepareForm().then(() => {
-        this.form.post(route("surveys.clone"), {
+      this.prepareForm().then((form) => {
+        form.post(route("surveys.clone"), {
           preserveScroll: true,
           onSuccess: () => {
             this.form.reset();
@@ -231,13 +231,21 @@ export default {
 
     prepareForm() {
        return new Promise((resolve) => {
-          this.form.questions = this.form.questions.map((q) => {
+          let payload = this.form;
+          payload.questions = payload.questions.map((q) => {
              return {
-                details: q.pivot,
-                answers: q.answers.map(answer => answer.id),
+                question_text: q.question_text,
+                question_type_id: q.pivot.question_type_id,
+                min: q.pivot?.min,
+                max: q.pivot?.max,
+                center: q.pivot?.center,
+                scale: q.pivot?.scale,
+                answers: q.answers.map(answer => ({
+                   answer_text: answer.answer_text
+                })),
              }
           });
-          resolve();
+          resolve(payload);
        });
     },
 
