@@ -1,6 +1,6 @@
 <template>
   <li class="nav-item">
-    <Link :href="href" :class="classes">
+    <Link :href="href" :class="classes" :style="active ? 'color: #fff !important' : ''">
       <slot></slot>
     </Link>
   </li>
@@ -20,8 +20,8 @@
     computed: {
       classes() {
         return this.active
-            ? 'nav-link active font-weight-bolder'
-            : 'nav-link'
+            ? 'nav-link active font-weight-bolder text-uppercase'
+            : 'nav-link text-uppercase'
       }
     }
   })

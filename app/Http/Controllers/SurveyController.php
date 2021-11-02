@@ -19,7 +19,7 @@ class SurveyController extends Controller
     {
         $surveys = $request->user()->surveys()
             ->with('questions.answers', 'questions.type')
-            ->withCount('questions')
+            ->withCount('questions', 'responses')
             ->get();
 
         $categories = Category::all();

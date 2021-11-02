@@ -5,9 +5,9 @@
     <jet-banner />
 
     <nav
+      id="app-nav-bar"
       class="
         navbar navbar-expand-md navbar-light
-        bg-success
         text-white
         border-bottom
         sticky-top
@@ -72,62 +72,6 @@
                   />
                 </svg>
               </template>
-
-              <template #content>
-                <!-- Team Management -->
-                <template v-if="$page.props.jetstream.hasTeamFeatures">
-                  <h6 class="dropdown-header">Manage Team</h6>
-
-                  <!-- Team Settings -->
-                  <jet-dropdown-link
-                    :href="route('teams.show', $page.props.user.current_team)"
-                  >
-                    Team Settings
-                  </jet-dropdown-link>
-
-                  <jet-dropdown-link
-                    :href="route('teams.create')"
-                    v-if="$page.props.jetstream.canCreateTeams"
-                  >
-                    Create New Team
-                  </jet-dropdown-link>
-
-                  <hr class="dropdown-divider" />
-
-                  <!-- Team Switcher -->
-                  <h6 class="dropdown-header">Switch Teams</h6>
-
-                  <template
-                    v-for="team in $page.props.user.all_teams"
-                    :key="team.id"
-                  >
-                    <form @submit.prevent="switchToTeam(team)">
-                      <jet-dropdown-link as="button">
-                        <div class="d-flex">
-                          <svg
-                            v-if="team.id == $page.props.user.current_team_id"
-                            class="me-1 text-success"
-                            width="20"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                            ></path>
-                          </svg>
-                          <span class="text-truncate" style="width: 12rem">{{
-                            team.name
-                          }}</span>
-                        </div>
-                      </jet-dropdown-link>
-                    </form>
-                  </template>
-                </template>
-              </template>
             </jet-dropdown>
 
             <!-- Authentication Links -->
@@ -190,7 +134,7 @@
     </nav>
 
     <!-- Page Heading -->
-    <header class="d-flex py-3 bg-white shadow-sm border-bottom">
+    <header class="d-flex py-3 bg-white shadow-sm border-bottom text-center">
       <div class="container">
         <slot name="header"></slot>
       </div>
@@ -261,8 +205,16 @@ export default {
 </script>
 
 <style>
-    .nav-link.active {
-        font-weight: 900;
-        font-size: 15px;
-    }
+.nav-link.active {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+#app-nav-bar {
+  background-image: linear-gradient(
+    to right,
+    rgb(91, 121, 162) 0%,
+    rgb(46, 68, 105) 100%
+  );
+}
 </style>

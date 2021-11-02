@@ -39,6 +39,7 @@
             </td>
             <td>
               <Link
+                v-if="item.responses_count"
                 v-show="item.questions_count > 0"
                 :href="route('surveys.preview-result', { survey: item })"
                 ><i class="far fa-chart-bar"></i

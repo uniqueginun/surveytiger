@@ -1,6 +1,6 @@
 <template>
     <div class="table-responsive-sm">
-        <table class="table table-success table-striped table-hover">
+        <table class="table table-hover">
             <thead class="thead-light">
             <slot name="header"></slot>
             </thead>

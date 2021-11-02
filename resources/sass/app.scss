@@ -12,8 +12,7 @@
 
 @import "~bootstrap/scss/bootstrap-utilities";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,200;0,300;1,100;1,200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,200;0,300;1,100;1,200&family=Noto+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
 
 //Generate utilites for Cursor
 $utilities: map-merge(
@@ -27,11 +26,15 @@ $utilities: map-merge(
 );
 
 .navbar-expand-md .nav-link {
+  color: #ffffff80 !important;
+}
+
+.active-link, .dropdown a {
   color: #fff !important;
 }
 
 body {
-  font-family: 'Noto Sans Display';
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
 }
 

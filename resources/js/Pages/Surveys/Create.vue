@@ -3,8 +3,8 @@
         <template #header>
             <h2 class="h4 font-weight-bold">Create Survey</h2>
         </template>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <form>
@@ -52,7 +52,7 @@
                                     {{ form.errors.category_id }}
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 mt-5 text-center">
                                 <button
                                     type="button"
                                     @click.prevent="setSubmit('create')"
@@ -70,7 +70,7 @@
                                 <button
                                     type="button"
                                     @click.prevent="setSubmit('save')"
-                                    class="btn btn-dark text-white mx-2"
+                                    class="btn btn-info text-white mx-2"
                                 >
                                     <div
                                         v-show="form.processing && !isCreate"
