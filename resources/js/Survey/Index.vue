@@ -62,11 +62,8 @@
                 >
                   <li>
                     <Link
-                      :data="{ survey: item }"
-                      as="button"
                       class="dropdown-item"
-                      :href="route('surveys.destroy', { survey: item })"
-                      method="delete"
+                      @click.prevent="deleteItem(item)"
                       title="delete this survey"
                       type="button"
                     >
@@ -140,6 +137,26 @@ export default {
       }
 
       copyUrl(route("survey.share", item));
+    },
+
+    deleteItem(item) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$inertia.delete(route('surveys.destroy', { survey: item }), {
+            onFinish: () => {
+              toaster("Survey deleted", "Success");
+            }
+          })
+        }
+      });
     },
 
     cloneSurvey(item) {

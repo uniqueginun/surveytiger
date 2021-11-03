@@ -20,7 +20,7 @@
 
       <!-- Other Browser Sessions -->
       <div class="mt-3" v-if="sessions.length > 0">
-        <div class="d-flex" v-for="session in sessions">
+        <div class="d-flex" v-for="(session, index) in sessions" :key="index">
           <div>
             <svg fill="none" width="32" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="text-muted" v-if="session.agent.is_desktop">
               <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>

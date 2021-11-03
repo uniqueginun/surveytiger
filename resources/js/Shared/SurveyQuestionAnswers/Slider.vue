@@ -21,9 +21,9 @@ export default {
     const { payload } = toRefs(props);
 
     const initial = {
-      min: payload?.value?.min || 0,
-      max: payload?.value?.max || 4,
-      center: payload?.value?.center || 10,
+      min: payload?.value?.min || 1,
+      max: payload?.value?.max || 10,
+      center: payload?.value?.center || 4,
     };
 
     const answers = ref(initial);

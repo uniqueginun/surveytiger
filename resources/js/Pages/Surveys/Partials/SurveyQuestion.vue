@@ -20,6 +20,7 @@
       </jet-danger-button>
     </template>
   </add-question>
+
   <div
     v-else
     class="row mb-3"
@@ -54,7 +55,7 @@
               <a
                 class="btn btn-danger"
                 type="button"
-                v-on:click.prevent="earseQuestion"
+                v-on:click.prevent="openModal"
               >
                 <i class="fas fa-times"></i>
               </a>
@@ -96,7 +97,10 @@ import {
 import JetDangerButton from "@/Jetstream/DangerButton.vue";
 
 export default {
-  components: { AddQuestion, JetDangerButton },
+  components: {
+    AddQuestion,
+    JetDangerButton,
+  },
   props: {
     question: {
       type: Object,
@@ -111,7 +115,7 @@ export default {
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const showButtons = ref(false);
 
     const handleMouseEvent = (action) => {
@@ -120,16 +124,15 @@ export default {
 
     const { question, survey } = props;
 
-    const { answers, questionSurvey, loadAnswers } = useAnswers(survey.id, question.id);
+    const { answers, questionSurvey, loadAnswers } = useAnswers(
+      survey.id,
+      question.id
+    );
 
     const { isDeleting, deleteQuestion } = useDeleteQuestion(
       survey.id,
       question.id
     );
-
-    const earseQuestion = () => {
-      deleteQuestion();
-    };
 
     const { toggleEditing, editingMode } = useUpdateQuestion(
       survey.id,
@@ -138,21 +141,37 @@ export default {
 
     const questionUpdated = () => {
       toggleEditing();
-       loadAnswers()
+      loadAnswers();
+    };
+
+    const openModal = () => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteQuestion();
+        }
+      });
     };
 
     onMounted(() => loadAnswers());
 
     return {
+      openModal,
       handleMouseEvent,
       showButtons,
       answers,
-      earseQuestion,
       isDeleting,
       toggleEditing,
       editingMode,
       questionUpdated,
-      questionSurvey
+      questionSurvey,
     };
   },
 };

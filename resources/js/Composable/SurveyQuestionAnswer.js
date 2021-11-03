@@ -27,7 +27,7 @@ export const useDeleteQuestion = (surveyId, questionId) => {
 
    const payload = { survey: surveyId, question: questionId };
 
-   const deleteQuestion = async () => {
+   const deleteQuestion = () => {
 
       isDeleting.value = true;
 
