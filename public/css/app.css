@@ -16252,3 +16252,7 @@ body {
 .invalid-feedback {
   display: block;
 }
+
+.content-body {
+  background-image: linear-gradient(to right, #5b79a2 0%, #2e4469 100%) !important;
+}

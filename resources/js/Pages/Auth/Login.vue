@@ -29,7 +29,7 @@
           <div class="custom-control custom-checkbox">
             <jet-checkbox id="remember_me" name="remember" v-model:checked="form.remember" />
 
-            <label class="custom-control-label" for="remember_me">
+            <label class="custom-control-label mx-2" for="remember_me">
               Remember Me
             </label>
           </div>
@@ -37,8 +37,13 @@
 
         <div class="mb-0">
           <div class="d-flex justify-content-end align-items-baseline">
+
+            <Link :href="route('register')" class="text-muted mx-3 text-decoration-none">
+              Don't have account?
+            </Link>
+
             <Link v-if="canResetPassword" :href="route('password.request')" class="text-muted mr-3">
-              Forgot your password?
+              Forgot password?
             </Link>
 
             <jet-button class="ms-4" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">

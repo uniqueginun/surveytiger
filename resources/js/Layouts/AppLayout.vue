@@ -17,7 +17,7 @@
       <div class="container">
         <!-- Logo -->
         <Link class="navbar-brand me-4" :href="route('dashboard')">
-          <jet-application-mark width="60" />
+          <jet-application-mark width="50" />
         </Link>
         <button
           class="navbar-toggler"
@@ -152,6 +152,7 @@ export default {
   data() {
     return {
       showingNavigationDropdown: false,
+      body: null
     };
   },
 
@@ -170,6 +171,7 @@ export default {
 
     logout() {
       this.$inertia.post(route("logout"));
+      this.body.classList.add("content-body");
     },
   },
 
@@ -178,6 +180,11 @@ export default {
       return window.location.pathname;
     },
   },
+
+  created() {
+    this.body = document.querySelector("body");
+    this.body.classList.remove("content-body");
+  }
 };
 </script>
 
