@@ -14,7 +14,7 @@ class CreateOfferedAnswersTable extends Migration
     public function up()
     {
         Schema::create('offered_answers', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('answer_text');
         });
     }
