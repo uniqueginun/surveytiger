@@ -12,27 +12,27 @@ class SurveyDesignStoreController extends Controller
 {
     public function __invoke(SurveyQuestionStore $request, Survey $survey)
     {
-        //DB::beginTransaction();
+        DB::beginTransaction();
 
-       // try {
+        try {
 
             Question::createFromRequest(
                 $request->toArray(), 
                 $survey
             );
 
-           // DB::commit();
+            DB::commit();
 
             return redirect()->route('surveys.design', $survey->id)->with('flash', 'Question added successfully');
 
-       /* } catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e->getMessage());
             return redirect()->back()->withErrors([
                 'question' => 'couldn\'t add the question',
                 'message' => 'Something went wrong',
             ]);
-        }*/
+        }
 
     }
 }
