@@ -12,6 +12,13 @@ class SurveyDesignStoreController extends Controller
 {
     public function __invoke(SurveyQuestionStore $request, Survey $survey)
     {
+        Question::createFromRequest(
+            $request->toArray(), 
+            $survey
+        );
+
+        return back();
+        
         DB::beginTransaction();
 
         try {
