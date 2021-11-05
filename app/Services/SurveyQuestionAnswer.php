@@ -15,9 +15,7 @@ abstract class SurveyQuestionAnswer
             continue;
          }
 
-         $offeredAnswer = OfferedAnswer::updateOrCreate(['id' => $answer['id'] ?? null], [
-             'answer_text' => $answer['answer_text'],
-         ]);
+         $offeredAnswer = self::createOrUpdateOfferedAnswer($answer);
 
          ModelsSurveyQuestionAnswer::create([
             'question_id' => $questionSurvey->question_id,
@@ -25,5 +23,18 @@ abstract class SurveyQuestionAnswer
             'survey_id' => $questionSurvey->survey_id,
          ]);
      }
+   }
+
+   protected static function createOrUpdateOfferedAnswer(array $answer)
+   {
+      $pk = $answer['id'] ?? null;
+
+      $offeredAnswer = !is_null($pk) ? OfferedAnswer::find($pk) : new OfferedAnswer();
+      $offeredAnswer->answer_text = $answer['answer_text'];
+      $offeredAnswer->save();
+
+      $offeredAnswer->fresh();
+
+      return $offeredAnswer;
    }
 }
