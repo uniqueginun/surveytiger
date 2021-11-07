@@ -31,12 +31,14 @@
       "
     >
       <div class="row justify-content-center text-center mb-5">
-        <div class="col-12">logo here</div>
+        <div class="col-12">
+          <application-mark width="150"></application-mark>
+        </div>
       </div>
       <div class="row justify-content-center text-center">
         <div class="col-12">
-          <h2>TigerMonkey (SVMK Inc.) is now Momentive</h2>
-          <h6 class="text-muted mt-4 text-lg">
+          <h3 class="sink">TigerMonkey (SVMK Inc.) is now Momentive</h3>
+          <h6 class="sink mt-4 text-lg">
             Learn more about the AI-driven solutions we're developing to help
             decision-makers shape truly exceptional experiences.
           </h6>
@@ -53,12 +55,14 @@
 
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
+import ApplicationMark from "@/Jetstream/ApplicationMark.vue";
 
 export default {
   name: "ThankYouForTaking.vue",
 
   components: {
     Link,
+    ApplicationMark
   },
 
   mounted() {
@@ -76,5 +80,9 @@ export default {
 
 .container-div {
   margin-top: 30vh;
+}
+
+.sink {
+  color: cornsilk;
 }
 </style>

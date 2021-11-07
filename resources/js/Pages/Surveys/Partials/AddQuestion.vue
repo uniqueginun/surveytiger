@@ -5,7 +5,7 @@ import JetInputError from "@/Jetstream/InputError.vue";
 import Multichoice from "@/Shared/SurveyQuestionAnswers/Multichoice.vue";
 import Slider from "@/Shared/SurveyQuestionAnswers/Slider.vue";
 import Rating from "@/Shared/SurveyQuestionAnswers/Rating.vue";
-import { reactive, computed, toRefs, watch } from "vue";
+import { reactive, computed, toRefs, watch, ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { useUpdateQuestion } from "@/Composable/SurveyQuestionAnswer.js";
 
@@ -63,6 +63,8 @@ export default {
 
     const formErrors = reactive({});
 
+    const processing = ref(false);
+
     const answersBLock = computed(() => {
       const type = questiontypes.find(
         (questiontype) => questiontype.id == QuestionForm.question_type_id
@@ -103,6 +105,8 @@ export default {
         return;
       }
 
+      processing.value = true;
+
       Inertia.post(route("surveys.design", props.survey.id), QuestionForm, {
         preserveScroll: true,
         onSuccess: () => {
@@ -115,6 +119,7 @@ export default {
           formErrors.value = errors;
           toaster(errors.message, "Error", "danger", "red");
         },
+        onFinish: () => processing.value = false
       });
     };
 
@@ -126,6 +131,7 @@ export default {
       optionsChanged,
       formErrors,
       isUpdating,
+      processing
     };
   },
 };
@@ -177,15 +183,15 @@ export default {
         </div>
         <div class="card-footer d-flex justify-content-end">
           <slot name="closeEdit" />
-          <jet-button @click.prevent="saveQuestion">
+          <jet-button @click.prevent="saveQuestion" :disabled="processing">
             <div
-              v-show="isUpdating"
+              v-show="processing"
               class="spinner-border spinner-border-sm"
               role="status"
             >
               <span class="visually-hidden">Loading...</span>
             </div>
-            Save
+            {{ processing ? 'Saving...' : 'Save' }}
           </jet-button>
         </div>
       </div>
